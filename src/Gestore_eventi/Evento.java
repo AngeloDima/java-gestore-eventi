@@ -21,6 +21,10 @@ public class Evento {
 		if (date.isBefore(today)) {
             throw new IllegalArgumentException("Data passata");
         }
+		
+		if (postiTotali <= 0) {
+            throw new IllegalArgumentException("Non ci sono posti disponibili");
+        }
 	}
 	
 	public void Disdici(int numeroPostiUtente, LocalDate date, LocalDate today) {
@@ -30,9 +34,9 @@ public class Evento {
             throw new IllegalArgumentException("Data passata riprova");
         }
 		
-		if (postiPrenotati < 0) {
-			System.out.println("non ci sono posti prenotati");
-		}
+		if (postiPrenotati <= 0) {
+            throw new IllegalArgumentException("Non ci sono posti prenotati");
+        }
 	}
 	
 	
