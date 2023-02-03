@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 public class Main {
 
+	private static Evento nuovoEvento;
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		Evento nuovoEvento = null;
 		
 		
+
 		
 		int postiPrenotati = 200;
 		
@@ -24,10 +24,10 @@ public class Main {
 		LocalDate today = LocalDate.now();
 		
 		
-		System.out.println("nome evento: ");
+		System.out.print("nome evento: ");
 		nomeEvento = s.nextLine();
 		
-		System.out.println("inserisci data: ");
+		System.out.print("inserisci data --dd/MM/yyyy--: ");
 		String dataInput = s.nextLine();
         LocalDate data = LocalDate.parse(dataInput, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
@@ -38,11 +38,11 @@ public class Main {
         
 
 
-		//posti da prenotare 
+		
         
         try {
         	
-             System.out.println("Quanti posti vuoi prenotare?: ");
+             System.out.print("Quanti posti vuoi prenotare?: ");
              PostiDaPrenotare = s.nextInt();
               
         } catch (InputMismatchException e) {
@@ -68,39 +68,47 @@ public class Main {
         
         s.nextLine();
         
-        //fine posti da prenotare 
+        
         
         int Sotra = postiPrenotati - PostiDaPrenotare;
               
-        // stampo a video 
-        
-        //System.out.println(nomeEvento + "--" + dataInput + "--" + PostiDaPrenotare);
-        //System.out.println("Posti rimanenti: " + Sotra );
-        
-        
-        //disdire qualche posto
+
         int postiDaDisdire = 0;
         String disdireInput;
         
 
 
         
-        System.out.println("Vuoi disdire qualche posto?: (S)i -- (N)o ?");
+        System.out.print("Vuoi disdire qualche posto?: (S)i -- (N)o ?   ");
         disdireInput=s.nextLine();
      
         if (disdireInput.equalsIgnoreCase("S")) {
-        	System.out.println("Quanti posti vuoi disdire? :");
+        	System.out.print  ("Quanti posti vuoi disdire?: ");
         	postiDaDisdire=s.nextInt();
         	int TotDis = postiPrenotati - postiDaDisdire;
         	int TotDis2 =  PostiDaPrenotare - postiDaDisdire;
+        	
+        	System.out.println("-------------------------------");
+        	System.out.println("-------------------------------");
+        	
         	System.out.println("Aggiorno posti :" + TotDis);
         	System.out.println("Posti prenotati: " + TotDis2 );
         	
         } else if (disdireInput.equalsIgnoreCase("N")) {
+        	
+        	System.out.println("-------------------------------");
+        	System.out.println("-------------------------------");
+        	
         	System.out.println("Riassunto");
         	System.out.println("Posti rimanenti: " + Sotra );
         	System.out.println("Posti prenotati: " + PostiDaPrenotare );
         }
+        
+        System.out.println("Evento: " + nomeEvento);
+        System.out.println("Programma terminato");
+        
+    	System.out.println("-------------------------------");
+    	System.out.println("-------------------------------");
     
         
 	}
