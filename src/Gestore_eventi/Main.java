@@ -92,11 +92,14 @@ public class Main {
         	System.out.println("Quanti posti vuoi disdire? :");
         	postiDaDisdire=s.nextInt();
         	int TotDis = postiPrenotati - postiDaDisdire;
+        	int TotDis2 =  PostiDaPrenotare - postiDaDisdire;
         	System.out.println("Aggiorno posti :" + TotDis);
+        	System.out.println("Posti prenotati: " + TotDis2 );
         	
         } else if (disdireInput.equalsIgnoreCase("N")) {
         	System.out.println("Riassunto");
-        	System.out.println("Posti rimanenti: " + Sotra );;
+        	System.out.println("Posti rimanenti: " + Sotra );
+        	System.out.println("Posti prenotati: " + PostiDaPrenotare );
         }
     
         
