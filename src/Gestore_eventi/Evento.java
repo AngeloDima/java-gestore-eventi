@@ -28,8 +28,10 @@ public class Evento {
 	}
 	
 	public void Disdici(int numeroPostiUtente, LocalDate date, LocalDate today) {
-		numeroPostiUtente--;
 		
+		
+		postiTotali--;
+		System.out.println("ciaoProva");
 		if (date.isBefore(today)) {
             throw new IllegalArgumentException("Data passata riprova");
         }
