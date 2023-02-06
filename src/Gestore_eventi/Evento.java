@@ -2,71 +2,105 @@ package Gestore_eventi;
 
 import java.time.LocalDate;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class Evento {
-	protected String titolo;
-	protected int data;
-	protected int postiTotali;
-	protected int postiPrenotati;
-	public Evento(String titolo, int data, int postiTotali, int postiPrenotati) {
+	
+	private String titolo;
+	private LocalDate data;
+	private int postiTotali;
+	private int postiPrenotati;
+	private LocalDate dataAttuale = LocalDate.now();
+	
+	
+	
+	public Evento (String titolo, LocalDate data, int postiTotali) throws Exception {
 		this.titolo = titolo;
 		this.data = data;
+		validazioneData(data);
 		this.postiTotali = postiTotali;
+		validazionePostiTotali(postiTotali);
 		this.postiPrenotati = 0;
-		
-		
+	}
+
+	//-----------------------------------------------------------------------------------------
+	
+	public void prenota(LocalDate data) throws Exception {
+		if (dataAttuale.isBefore(data))
+			throw new Exception();
+		if (postiTotali <= postiPrenotati)
+			throw new Exception();
+		postiPrenotati++;
 	}
 	
-	public void Prenota(int numeroPostiUtente,LocalDate date, LocalDate today) {
-		numeroPostiUtente++;
-		if (date.isBefore(today)) {
-            throw new IllegalArgumentException("Data passata");
-        }
-		
-		if (postiTotali <= 0) {
-            throw new IllegalArgumentException("Non ci sono posti disponibili");
-        }
+	public void disdici(LocalDate data) throws Exception {
+		if (dataAttuale.isBefore(data))
+			throw new Exception();
+		if (postiPrenotati < 1)
+			throw new Exception();
+		postiPrenotati--;		
 	}
 	
-	public void Disdici(int numeroPostiUtente, LocalDate date, LocalDate today) {
-		
-		
-		postiTotali--;
-		System.out.println("ciaoProva");
-		if (date.isBefore(today)) {
-            throw new IllegalArgumentException("Data passata riprova");
-        }
-		
-		if (postiPrenotati <= 0) {
-            throw new IllegalArgumentException("Non ci sono posti prenotati");
-        }
-	}
 	
 	
 	
 	
 	@Override
 	public String toString() {
-		return "Evento [titolo=" + titolo + ", data=" + data + ", postiTotali=" + postiTotali + ", postiPrenotati="
-				+ postiPrenotati + ", getTitolo()=" + getTitolo() + ", getData()=" + getData() + "]";
+		return "Evento [data evento= " + getDataFormattata(data) + ", titolo evento= " + titolo + "]";
+	}
+	
+	
+	
+	public void validazioneData(LocalDate data) throws Exception {
+		if (data.isBefore(dataAttuale))
+			throw new Exception();
+	}
+	
+	
+	
+	public void validazionePostiTotali(int postiTotali) throws Exception {
+		if (postiTotali < 1)
+			throw new Exception();
 	}
 
+	
+	//--------------------------------------------------------------------------------------
+	
 	public String getTitolo() {
 		return titolo;
 	}
-	public void setTitolo(String titolo) {
-		this.titolo = titolo;
-	}
-	public int getData() {
+
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(int data) {
-		this.data = data;
+	
+	public String getDataFormattata(LocalDate data) {
+		DateTimeFormatter formattaData = DateTimeFormatter.ofPattern("dd/MM/yyyy").withLocale(Locale.ITALY);
+		String dataFormattata = data.format(formattaData);
+		return dataFormattata;
 	}
+
 	public int getPostiTotali() {
 		return postiTotali;
 	}
+
 	public int getPostiPrenotati() {
 		return postiPrenotati;
+	}
+	
+	public int getPostiDisponibili() {
+		return postiTotali - postiPrenotati;
+	}
+
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
+
+	public void setData(LocalDate data) throws Exception {
+		validazioneData(data);
+		this.data = data;
 	}
 
 }
